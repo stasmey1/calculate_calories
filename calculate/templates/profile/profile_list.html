@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>Профили</title>{% endblock %}
+
+
+{% block content %}
+
+<a class="btn btn-primary mb-2 " href="{% url 'profile_add' %}" role="button">Добавить</a>
+<div class="row">
+    {% for profile in profile_list %}
+    <div class="col-3">
+
+        <div class="card" style="width: 18rem;">
+
+            <a href="{{profile.get_absolute_url}}">
+                {% if profile.photo %}
+                    <img src="{{profile.photo.url}}" class="card-img-top" alt="..." height="360">
+                {% endif %}
+            </a>
+
+            <div class="card-body">
+                <p class="card-text"><a href="{{profile.get_absolute_url}}">{{profile.name}}</a></p>
+            </div>
+
+        </div>
+
+    </div>
+    {% endfor %}
+</div>
+
+
+{% endblock content %}

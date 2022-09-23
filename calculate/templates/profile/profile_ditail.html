@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}<title>{{profile.name}}</title>{% endblock %}
+
+
+{% block content %}
+<div class="row">
+
+    {% if profile.photo %}
+    <div class="col-6">
+        <img src="{{profile.photo.url}}" height="300" alt="">
+    </div>
+    {% endif %}
+
+    <div class="col">
+        <p>цель - {{profile.get_target_display}}</p>
+        <p>рост - {{profile.height}}</p>
+        <p>вес - {{profile.weight}}</p>
+        <p>возраст - {{profile.age}}</p>
+        <p>активность - {{profile.get_activity_display}}</p>
+        <hr>
+        <p>индекс массы тела - {{profile.body_mass_index}}</p>
+        <p>{{normal_weight}}</p>
+        <p>Килокаллории :
+            {% if normal_calories %}
+            {{normal_calories}}
+            {% endif %}
+            {% if deficit_calories %}
+            {{deficit_calories}}
+            {% endif %}
+        </p>
+        <p>Норма БЖУ :
+            {% if normal_protein_fat_carbohydrate %}
+            {{normal_protein_fat_carbohydrate}}
+            {% endif %}
+            {% if deficit_protein_fat_carbohydrate %}
+            {{deficit_protein_fat_carbohydrate}}
+            {% endif %}
+        </p>
+    </div>
+</div>
+
+<a class="btn btn-primary" href="{% url 'profile_change' profile.slug %}" role="button">Обновить данные</a>
+<a class="btn btn-danger" href="{% url 'profile_delete' profile.slug %}" role="button">Удалить профиль</a>
+
+{% endblock content %}
